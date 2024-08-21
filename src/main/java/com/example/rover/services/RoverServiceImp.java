@@ -30,13 +30,13 @@ public class RoverServiceImp implements RoverService{
                     rover.setY(rover.getY() - 1);
                     break;
                 } else if (Direction.EAST.equals(rover.getDirection())){
-                    rover.setX(rover.getX() - 1);
+                    rover.setX(rover.getX() + 1);
                     break;
                 }else if (Direction.SOUTH.equals(rover.getDirection())){
                     rover.setY(rover.getY() + 1);
                     break;
                 } else if (Direction.WEST.equals(rover.getDirection())) {
-                    rover.setX(rover.getX() + 1);
+                    rover.setX(rover.getX() - 1);
                     break;
                 }
             case "B":
@@ -44,13 +44,13 @@ public class RoverServiceImp implements RoverService{
                     rover.setY(rover.getY() + 1);
                     break;
                 } else if (Direction.EAST.equals(rover.getDirection())){
-                    rover.setX(rover.getX() + 1);
+                    rover.setX(rover.getX() - 1);
                     break;
                 }else if (Direction.SOUTH.equals(rover.getDirection())){
                     rover.setY(rover.getY() - 1);
                     break;
                 } else if (Direction.WEST.equals(rover.getDirection())) {
-                    rover.setX(rover.getX() - 1);
+                    rover.setX(rover.getX() + 1);
                     break;
                 }
             case "R":

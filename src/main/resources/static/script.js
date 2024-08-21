@@ -37,6 +37,8 @@ let roverJson = await roverResponse.json();
 //Seteamos el Rover
 moveRover(roverJson.x, roverJson.y);
 
+rotateRover();
+
 
 }
 
@@ -50,6 +52,29 @@ function moveRover(x,y){
     playMoveSound()
 
 }
+
+async function rotateRover(){
+    //Obtenemos la información del rover
+    let roverResponse = await fetch('/api/rover/', {
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    });
+
+    let roverJson = await roverResponse.json();
+
+    if (roverJson.direction == "NORTH"){
+        document.getElementById('rover').setAttribute("src", "images/robotNorte.png");
+    } else if (roverJson.direction == "EAST"){
+        document.getElementById('rover').setAttribute("src", "images/robotEste.png");
+    } else if (roverJson.direction == "SOUTH"){
+        document.getElementById('rover').setAttribute("src", "images/robotSur.png");
+    } else if (roverJson.direction == "WEST"){
+        document.getElementById('rover').setAttribute("src", "images/robotOeste.png");
+    }
+}
+
 
 function createRock(x,y){
     var rock = document.createElement("img");
