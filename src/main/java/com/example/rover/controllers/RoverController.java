@@ -4,6 +4,8 @@ import com.example.rover.dto.CommandDto;
 import com.example.rover.dto.RoverDto;
 import com.example.rover.models.Direction;
 import com.example.rover.models.Rover;
+import com.example.rover.services.RoverService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RoverController {
 
+    @Autowired
+    RoverService service;
+
     @GetMapping ("/api/rover/")
     public Rover get(){
-        Rover rover = new Rover();
-        rover.setX(5);
-        rover.setY(3);
-        rover.setDirection(Direction.EAST);
-        return rover;
+        return service.get();
     }
 
     @PostMapping ("/api/rover/")
@@ -27,7 +28,7 @@ public class RoverController {
     }
 
     @PostMapping ("/api/rover/command/")
-    public void create(@RequestBody CommandDto commands){
+    public void sendCommand(@RequestBody CommandDto commands){
 
 
     }
