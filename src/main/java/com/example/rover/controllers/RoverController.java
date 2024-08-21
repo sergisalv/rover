@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class RoverController {
 
@@ -30,6 +32,14 @@ public class RoverController {
     @PostMapping ("/api/rover/command/")
     public void sendCommand(@RequestBody CommandDto commands){
 
+        String command = commands.getCommands().get(0);
 
-    }
+        service.sendCommand(command);
+
+
+        }
+
+
+
+
 }

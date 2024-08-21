@@ -1,11 +1,42 @@
-function  createMap(){
-    // Llamado al backend
+createMap();
 
-    moveRover(2,3);
-    createRock(4,5);
-    createRock(1,1);
-    createRock(4,7);
-    createRock(8,8);
+
+async function  createMap(){
+refreshRover();
+
+//Obtenemos la información de los obstaculos
+
+let obstacleResponse = await fetch('/api/obstacle/', {
+    method: 'GET',
+    headers: {
+        'Content-Type' : 'application/json'
+    }
+});
+
+let obstaclesJson = await obstacleResponse.json();
+obstaclesJson.forEach(obstacleJson => {
+    //Seteamos todas las rocas
+ createRock(obstacleJson.x, obstacleJson.y);   
+    
+});
+
+
+}
+
+async function refreshRover(){
+    //Obtenemos la información del rover
+    let roverResponse = await fetch('/api/rover/', {
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    });
+
+let roverJson = await roverResponse.json();
+
+//Seteamos el Rover
+moveRover(roverJson.x, roverJson.y);
+
 
 }
 
@@ -35,19 +66,34 @@ function createRock(x,y){
 
 
 function clickBtnRotateLeft(){
-    alert("Left");
+    sendCommand("L")
 }
 
 function clickBtnRotateRight(){
-    alert("Right");
-}
+    sendCommand("R")
+    }
 
-function moveForward(){
-    alert("Forward");
+
+async function moveForward(){
+    sendCommand("F")
 }
 
 function moveBack(){
-    alert("Backward");
+    sendCommand("B")
+}
+
+async function sendCommand(command) {
+    let requestBody = {
+        "commands" : [command]
+    };
+    await fetch('/api/rover/command/', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    });
+   await refreshRover();
 }
 
 function playMoveSound(){
