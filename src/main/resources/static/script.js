@@ -3,7 +3,7 @@ createMap();
 
 
 async function  createMap(){
-refreshRover();
+refreshRover("A");
 
 let obstaclesJson = await getObstacles();
 obstaclesJson.forEach(obstacleJson => {
@@ -43,18 +43,23 @@ let roverJson = await roverResponse.json();
 return roverJson;
 }
 
-async function refreshRover(){
+async function refreshRover(command){
 
 let roverJson = await getRover();
 let obstaclesJson = await getObstacles();
 obstaclesJson.forEach(obstacleJson => {
     if ((roverJson.x === obstacleJson.x) && (roverJson.y === obstacleJson.y)){
         alert("Un obstáculo impide el paso");
-        sendCommand("B");
+        switch (command){
+            case "F":
+                moveBack();
+                break;
+            case "B":
+                moveForward();
+                break;
+        }
     }
          
-   
-    
    
 }); 
 
@@ -142,7 +147,7 @@ async function sendCommand(command) {
         },
         body: JSON.stringify(requestBody)
     });
-   await refreshRover();
+   await refreshRover(command);
 }
 
 function playMoveSound(){
