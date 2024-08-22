@@ -7,5 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface ObstacleService {
+    public void obstacleCreation();
     public List<Obstacle> findAll();
 }

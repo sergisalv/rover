@@ -24,6 +24,8 @@ public class ObstacleController {
 
     @GetMapping ("/api/obstacle/")
     public List<Obstacle> getAll(){
+        service.obstacleCreation();
        return service.findAll();
+
     }
 }
