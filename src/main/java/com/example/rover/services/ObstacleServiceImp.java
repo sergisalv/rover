@@ -36,6 +36,7 @@ public class ObstacleServiceImp implements ObstacleService{
         System.out.println("Tamaño lista: " + list.size());
         for (int i = 0; i< 5; i++){
             repository.save(list.get(i));
+            System.out.println(list.get(i));
         }
 
 
