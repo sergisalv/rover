@@ -1,9 +1,21 @@
+
 createMap();
 
 
 async function  createMap(){
 refreshRover();
 
+let obstaclesJson = await getObstacles();
+obstaclesJson.forEach(obstacleJson => {
+    //Seteamos todas las rocas
+ createRock(obstacleJson.x, obstacleJson.y);   
+    
+});
+
+
+}
+
+async function getObstacles(){
 //Obtenemos la información de los obstaculos
 
 let obstacleResponse = await fetch('/api/obstacle/', {
@@ -14,18 +26,13 @@ let obstacleResponse = await fetch('/api/obstacle/', {
 });
 
 let obstaclesJson = await obstacleResponse.json();
-obstaclesJson.forEach(obstacleJson => {
-    //Seteamos todas las rocas
- createRock(obstacleJson.x, obstacleJson.y);   
+return obstaclesJson;
     
-});
-
-
 }
 
-async function refreshRover(){
-    //Obtenemos la información del rover
-    let roverResponse = await fetch('/api/rover/', {
+async function getRover(){
+     //Obtenemos la información del rover
+     let roverResponse = await fetch('/api/rover/', {
         method: 'GET',
         headers: {
             'Content-Type' : 'application/json'
@@ -33,9 +40,25 @@ async function refreshRover(){
     });
 
 let roverJson = await roverResponse.json();
+return roverJson;
+}
 
-//Seteamos el Rover
-moveRover(roverJson.x, roverJson.y);
+async function refreshRover(){
+
+let roverJson = await getRover();
+let obstaclesJson = await getObstacles();
+obstaclesJson.forEach(obstacleJson => {
+    if ((roverJson.x === obstacleJson.x) && (roverJson.y === obstacleJson.y)){
+        alert("Un obstáculo impide el paso");
+        sendCommand("B");
+    }
+         
+   
+    
+   
+}); 
+
+ moveRover(roverJson.x, roverJson.y);
 
 rotateRover();
 
@@ -101,7 +124,8 @@ function clickBtnRotateRight(){
 
 async function moveForward(){
     sendCommand("F")
-}
+    }
+   
 
 function moveBack(){
     sendCommand("B")
