@@ -81,6 +81,10 @@ public class RoverServiceImp implements RoverService{
                     rover.setDirection(Direction.NORTH);
                     break;
                 }
+            case "C":
+                rover.setX(0);
+                rover.setY(0);
+                rover.setDirection(Direction.EAST);
 
         }
 

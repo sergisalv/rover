@@ -6,10 +6,13 @@ async function  createMap(){
 refreshRover("A");
 
 let obstaclesJson = await getObstacles();
+
+sendCommand("C");
+
 obstaclesJson.forEach(obstacleJson => {
     //Seteamos todas las rocas
- createRock(obstacleJson.x, obstacleJson.y);   
-    
+ createRock(obstacleJson.x, obstacleJson.y);
+
 });
 
 
@@ -47,7 +50,7 @@ async function refreshRover(command){
 
 let roverJson = await getRover();
 let obstaclesJson = await getObstacles();
-obstaclesJson.forEach(obstacleJson => {
+/*obstaclesJson.forEach(obstacleJson => {
     if ((roverJson.x === obstacleJson.x) && (roverJson.y === obstacleJson.y)){
         alert("Un obstáculo impide el paso");
         switch (command){
@@ -61,7 +64,7 @@ obstaclesJson.forEach(obstacleJson => {
     }
          
    
-}); 
+}); */
 
  moveRover(roverJson.x, roverJson.y);
 
